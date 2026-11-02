@@ -1,5 +1,5 @@
-# LHDiff Steps 1 & 2 — Python 3 standard library only.
-# No third-party packages are required to run or test this project.
+# LHDiff Steps 1 & 2 uses only the Python standard library.
+# You don't need any extra packages to run the code or tests.
 #
-# Runtime: Python >= 3.9 (uses dataclasses, list[str] typing, etc.)
-# Tests:   python -m unittest discover -s tests -v
+# Requires Python 3.9 or newer.
+# Run the tests with: python -m unittest discover -s tests -v

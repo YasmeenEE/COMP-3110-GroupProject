@@ -1,11 +1,11 @@
 """
-Command-line entry point for LHDiff Steps 1 & 2.
+Run Steps 1 and 2 of LHDiff on two files.
 
-Usage:
-    python main.py OLD_FILE NEW_FILE [--show-normalized]
+How to run: python main.py OLD_FILE NEW_FILE [--show-normalized]
 
-Prints the unchanged-line mapping and the left / right lists produced by
-Step 2.  With --show-normalized it also prints the Step 1 output of each file.
+This shows which lines stayed the same and lists the old and new lines that
+still need to be matched. 
+Add --show-normalized to also see each file after Step 1 preprocessing.
 """
 
 from __future__ import annotations
@@ -22,7 +22,7 @@ def _main(argv: list[str]) -> int:
     import argparse
 
     p = argparse.ArgumentParser(
-        description="LHDiff Steps 1 & 2: preprocess, then detect unchanged lines.")
+        description="LHDiff Steps 1 & 2: preprocess, then find unchanged lines.")
     p.add_argument("old_file")
     p.add_argument("new_file")
     p.add_argument("--show-normalized", action="store_true",
@@ -33,17 +33,17 @@ def _main(argv: list[str]) -> int:
     new_raw = _read(args.new_file)
 
     if args.show_normalized:
-        print("# Step 1 -- normalised OLD file:")
+        print("# Step 1: normalised OLD file:")
         for i, l in enumerate(preprocess(old_raw), 1):
             print(f"  {i:>3}: {l}")
-        print("# Step 1 -- normalised NEW file:")
+        print("# Step 1: normalised NEW file:")
         for i, l in enumerate(preprocess(new_raw), 1):
             print(f"  {i:>3}: {l}")
         print()
 
     res = detect_unchanged(old_raw, new_raw)
 
-    print("# Step 2 -- unchanged lines (old-new):")
+    print("# Step 2: unchanged lines (old-new):")
     print(res.format_mapping() or "  (none)")
     print("\n# Left list (old lines to resolve):")
     print("  " + (", ".join(map(str, res.left_list)) or "(empty)"))

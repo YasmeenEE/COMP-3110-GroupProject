@@ -1,14 +1,15 @@
 """
-LHDiff -- a language-independent hybrid line-tracking technique.
+LHDiff tracks lines between versions of a file.
+This package handles preprocessing and finding unchanged lines, which are the first two steps of LHDiff:
 
-This package implements the first two steps of LHDiff:
+    Step 1 can be found in the file: (src.preprocessing) 
+    Step 2 can be found in the file:(src.detect_unchanged)
 
-    Step 1  preprocessing     (src.preprocessing)
-    Step 2  detect unchanged  (src.detect_unchanged)
-
-Public API:
+Public API imports:
     normalize, preprocess            -- Step 1
-    detect_unchanged, Step2Result    -- Step 2
+    detect_unchanged, Step2Result    -- Step 2, 
+    
+
 """
 
 from .preprocessing import normalize, preprocess

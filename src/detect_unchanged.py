@@ -1,5 +1,5 @@
 """
-Step 2 -- Detect Unchanged Lines.
+Step 2: Finding Unchanged Lines.
 
 The normalised files (from Step 1) are compared with the Unix diff algorithm.
 Lines that diff considers equal are mapped directly (old line -> new line).

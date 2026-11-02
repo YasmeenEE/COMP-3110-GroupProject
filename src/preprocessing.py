@@ -1,17 +1,12 @@
 """
-Step 1 -- Preprocessing.
+Step 1: Preprocessing; cleaning up lines before comparing them.
 
-Each line of a source file is normalised so that later comparison is robust to
-re-indentation and case-only edits, while staying completely language
-independent. Normalisation:
+Make everything lowercase, replace extra whitespace with a single space,
+and remove spaces at the start and end. This keeps changes in case or
+indentation from getting in the way.
 
-    1. lowercase the line
-    2. collapse every run of whitespace to a single space
-    3. strip leading / trailing whitespace
-
-Example (from the slides' "After Preprocessing" column):
-    "    FileReader fr = new FileReader(path);"
-      -> "filereader fr = new filereader(path);"
+For example:
+    "    FileReader fr = new FileReader(path);" -> "filereader fr = new filereader(path);"
 """
 
 from __future__ import annotations
