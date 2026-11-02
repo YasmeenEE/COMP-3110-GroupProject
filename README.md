@@ -24,7 +24,7 @@ Pure Python 3 standard library — no installation, no dependencies.
 
 ```
 lhdiff_step1_2/
-├── lhdiff/
+├── src/
 │   ├── __init__.py            # package API
 │   ├── preprocessing.py       # Step 1
 │   └── detect_unchanged.py    # Step 2
