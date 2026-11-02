@@ -1,54 +1,66 @@
-# LHDiff — Steps 1 & 2
+# LHDiff - Steps 1 & 2
 
-A clean, language-independent implementation of the **first two steps** of
-LHDiff (Asaduzzaman et al., ICSM 2013), for COMP-3110.
+This is our COMP 3110 project. We are using Python to compare two versions of a file.
 
-Given two versions of a text file, this project:
+We want to find which lines in the old file match the lines in the new file.
 
-1. **Preprocessing** — normalises every line so comparison is robust to
-   re-indentation and case-only edits.
-2. **Detect Unchanged Lines** — runs the diff algorithm over the normalised
-   lines, maps the lines that are unchanged, and splits the rest into the
-   **left list** (old lines still to resolve) and **right list** (new lines
-   still to resolve).
+We have worked on the first two steps of LHDiff.
 
-Steps 3–5 (candidate generation, conflict resolution, line-split detection)
-are intentionally **out of scope** here; the left/right lists are exactly the
-hand-off point to Step 3.
+## Step 1: Preprocessing
 
-Pure Python 3 standard library — no installation, no dependencies.
+In this step, we prepare the files before comparing them.
 
----
+The program:
+- Changes capital letters to small letters.
+- Removes extra spaces.
+- Removes spaces at the start and end of each line.
 
-## Layout
+For example:
 
-```
-COMP-3110-GroupProject/
-├── src/
-│   ├── __init__.py            # package API
-│   ├── preprocessing.py       # Step 1
-│   └── detect_unchanged.py    # Step 2
-├── main.py                    # command-line entry point
-├── tests/
-│   ├── test_preprocessing.py
-│   └── test_detect_unchanged.py
-├── examples/
-│   ├── filereader_old.txt     # the slides' Step-2 example (old)
-│   └── filereader_new.txt     # the slides' Step-2 example (new)
-└── README.md
-```
+Before: `FileReader fr = new FileReader(path);`
 
----
+After: `filereader fr = new filereader(path);`
 
-## Usage
+The code is in `src/preprocessing.py`.
+
+## Step 2: Detect Unchanged Lines
+
+In this step, we compare the old and new files.
+
+We use Python's `difflib.SequenceMatcher` to find lines that are the same.
+
+The program gives us three results:
+
+- **Mapping:** Lines that match in both files.
+- **Left List:** Old lines that still need to be checked.
+- **Right List:** New lines that still need to be checked.
+
+The code is in `src/detect_unchanged.py`.
+
+## Project Files
+
+Our project has these files and folders:
+- src/preprocessing.py - Code for Step 1.
+- src/detect_unchanged.py - Code for Step 2.
+- src/__init__.py - Helps us use the Python functions.
+- main.py - Runs our program.
+- examples/ - Has example files.
+- tests/ - Has files to test our code.
+- README.md - Explains our project.
+
+## How to Run
+
+Open the project in VS Code.
+
+Run this command in the terminal:
 
 ```bash
 python main.py examples/filereader_old.txt examples/filereader_new.txt
 ```
 
-Output:
+Example output:
 
-```
+```text
 # Step 2 -- unchanged lines (old-new):
 1-1
 2-3
@@ -57,51 +69,39 @@ Output:
 
 # Left list (old lines to resolve):
   3, 5, 6, 8
+
 # Right list (new lines to resolve):
   2, 4, 6, 7, 8
 ```
 
-Add `--show-normalized` to also print the Step 1 output of each file.
+For example, `2-3` means line 2 in the old file matches line 3 in the new file.
 
-### As a library
+To see the lines after Step 1, use:
+
+```bash
+python main.py examples/filereader_old.txt examples/filereader_new.txt --show-normalized
+```
+
+## Using the Code
+
+We can also use the functions in another Python file.
 
 ```python
 from src import preprocess, detect_unchanged
 
 norm = preprocess(["public void  Foo(){", "    int X = 0;"])
-# -> ['public void foo(){', 'int x = 0;']
 
 res = detect_unchanged(old_lines, new_lines)
-res.mapping      # {old_line: new_line} for unchanged lines
-res.left_list    # old line numbers to resolve in Step 3
-res.right_list   # new line numbers to resolve in Step 3
+
+res.mapping
+res.left_list
+res.right_list
 ```
 
----
+## Next Steps
 
-## How it works
+We still need to work on:
 
-### Step 1 — Preprocessing (`src/preprocessing.py`)
-
-`normalize()` lowercases the line, collapses every run of whitespace to a
-single space, and trims the ends. Matches the slides' "After Preprocessing"
-column, e.g. `"    FileReader fr = new FileReader(path);"` →
-`"filereader fr = new filereader(path);"`.
-
-### Step 2 — Detect Unchanged Lines (`src/detect_unchanged.py`)
-
-The two normalised files are compared with Python's `difflib.SequenceMatcher`
-(the Unix-diff algorithm). For each `equal` block the old/new lines are mapped
-1:1; for each `replace` / `delete` / `insert` block the old lines go to the
-left list and the new lines go to the right list. Line numbers are 1-based.
-
----
-
-## Running the tests
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-The tests check normalisation, the identity mapping, insertions/deletions, and
-reproduce the `fileReader` example from the Step-2 slide.
+- **Step 3:** Find possible matching lines.
+- **Step 4:** Choose the best matches.
+- **Step 5:** Find lines that were split into more than one line.
