@@ -1,0 +1,8 @@
+public void fileReader(String path){
+FileReader fr = new FileReader(path);
+LineReader r = new LineReader(fr);
+String line  = null;
+while(line = lr.readLine()){
+System.out.println("line: "+line) ;
+}
+}
