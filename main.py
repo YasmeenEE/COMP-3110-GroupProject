@@ -10,7 +10,7 @@ Step 2.  With --show-normalized it also prints the Step 1 output of each file.
 
 from __future__ import annotations
 
-from lhdiff import preprocess, detect_unchanged
+from src import preprocess, detect_unchanged
 
 
 def _read(path: str) -> list[str]:

@@ -23,7 +23,7 @@ Pure Python 3 standard library — no installation, no dependencies.
 ## Layout
 
 ```
-lhdiff_step1_2/
+COMP-3110-GroupProject/
 ├── src/
 │   ├── __init__.py            # package API
 │   ├── preprocessing.py       # Step 1
@@ -66,7 +66,7 @@ Add `--show-normalized` to also print the Step 1 output of each file.
 ### As a library
 
 ```python
-from lhdiff import preprocess, detect_unchanged
+from src import preprocess, detect_unchanged
 
 norm = preprocess(["public void  Foo(){", "    int X = 0;"])
 # -> ['public void foo(){', 'int x = 0;']
@@ -81,14 +81,14 @@ res.right_list   # new line numbers to resolve in Step 3
 
 ## How it works
 
-### Step 1 — Preprocessing (`lhdiff/preprocessing.py`)
+### Step 1 — Preprocessing (`src/preprocessing.py`)
 
 `normalize()` lowercases the line, collapses every run of whitespace to a
 single space, and trims the ends. Matches the slides' "After Preprocessing"
 column, e.g. `"    FileReader fr = new FileReader(path);"` →
 `"filereader fr = new filereader(path);"`.
 
-### Step 2 — Detect Unchanged Lines (`lhdiff/detect_unchanged.py`)
+### Step 2 — Detect Unchanged Lines (`src/detect_unchanged.py`)
 
 The two normalised files are compared with Python's `difflib.SequenceMatcher`
 (the Unix-diff algorithm). For each `equal` block the old/new lines are mapped

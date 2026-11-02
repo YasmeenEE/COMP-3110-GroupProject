@@ -6,7 +6,7 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from lhdiff import detect_unchanged
+from src import detect_unchanged
 
 
 class TestDetectUnchanged(unittest.TestCase):

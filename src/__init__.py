@@ -3,8 +3,8 @@ LHDiff -- a language-independent hybrid line-tracking technique.
 
 This package implements the first two steps of LHDiff:
 
-    Step 1  preprocessing     (lhdiff.preprocessing)
-    Step 2  detect unchanged  (lhdiff.detect_unchanged)
+    Step 1  preprocessing     (src.preprocessing)
+    Step 2  detect unchanged  (src.detect_unchanged)
 
 Public API:
     normalize, preprocess            -- Step 1
