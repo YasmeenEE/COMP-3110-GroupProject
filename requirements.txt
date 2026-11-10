@@ -1,5 +1,2 @@
-# LHDiff Steps 1 & 2 uses only the Python standard library.
-# You don't need any extra packages to run the code or tests.
-#
-# Requires Python 3.9 or newer.
-# Run the tests with: python -m unittest discover -s tests -v
+rapidfuzz
+scikit-learn
