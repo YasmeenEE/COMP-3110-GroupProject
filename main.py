@@ -3,14 +3,19 @@ Run Steps 1–4 of LHDiff on two files.
 
 How to run: python main.py OLD_FILE NEW_FILE [--show-normalized]
 
-Steps 1 & 2 find exact unchanged lines. Steps 3 & 4 then match remaining
-lines using content + context similarity.
-Add --show-normalized to also see each file after Step 1 preprocessing.
+  Step 1–2: preprocess and find exact unchanged lines
+  Step 3:   SimHash candidate list (top k=15 per old line)
+  Step 4:   resolve conflicts with textual similarity on those candidates
 """
 
 from __future__ import annotations
 
-from src import preprocess, detect_unchanged, match_changed_lines
+from src import (
+    preprocess,
+    detect_unchanged,
+    generate_candidates,
+    match_changed_lines,
+)
 
 
 def _read(path: str) -> list[str]:
@@ -26,7 +31,7 @@ def _main(argv: list[str]) -> int:
     import argparse
 
     p = argparse.ArgumentParser(
-        description="LHDiff Steps 1–4: preprocess, unchanged lines, then similarity matching.")
+        description="LHDiff Steps 1–4: unchanged lines, SimHash candidates, then conflict resolution.")
     p.add_argument("old_file")
     p.add_argument("new_file")
     p.add_argument("--show-normalized", action="store_true",
@@ -54,8 +59,18 @@ def _main(argv: list[str]) -> int:
     print("# Right list (new lines to resolve):")
     print("  " + (", ".join(map(str, res.right_list)) or "(empty)"))
 
-    similarity_matches = match_changed_lines(
+    candidates = generate_candidates(
         old_raw, new_raw, res.left_list, res.right_list
+    )
+    print("\n# Step 3: SimHash candidate list (new_line(score), best first):")
+    print(candidates.format() or "  (none)")
+
+    similarity_matches = match_changed_lines(
+        old_raw,
+        new_raw,
+        res.left_list,
+        res.right_list,
+        candidates=candidates,
     )
     res.mapping.update(similarity_matches)
 
@@ -63,7 +78,7 @@ def _main(argv: list[str]) -> int:
     matched_right = set(similarity_matches.values())
     still_right = [n for n in res.right_list if n not in matched_right]
 
-    print("\n# Steps 3 & 4: similarity matches (old-new):")
+    print("\n# Step 4: similarity matches (old-new):")
     print(_format_pairs(similarity_matches) or "  (none)")
     print("\n# Final mapping (old-new):")
     print(res.format_mapping() or "  (none)")
