@@ -27,10 +27,12 @@ from .generate_candidates import (
     CandidateListResult,
     CANDIDATE_K,
 )
-from .similarity import calculate_content_similarity
-from .context_similarity import calculate_context_similarity
-from .match_candidates import match_changed_lines, combined_similarity
-
+from .resolve_conflicts import (
+    calculate_text_similarity,
+    calculate_context_similarity,
+    combined_similarity,
+    resolve_conflicts,
+)
 __all__ = [
     "normalize",
     "preprocess",
@@ -45,9 +47,9 @@ __all__ = [
     "Candidate",
     "CandidateListResult",
     "CANDIDATE_K",
-    "calculate_content_similarity",
+    "calculate_text_similarity",
     "calculate_context_similarity",
-    "match_changed_lines",
+    "resolve_conflicts",
     "combined_similarity",
 ]
 

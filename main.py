@@ -10,11 +10,12 @@ How to run: python main.py OLD_FILE NEW_FILE [--show-normalized]
 
 from __future__ import annotations
 
+
 from src import (
     preprocess,
     detect_unchanged,
     generate_candidates,
-    match_changed_lines,
+    resolve_conflicts,
 )
 
 
@@ -65,11 +66,9 @@ def _main(argv: list[str]) -> int:
     print("\n# Step 3: SimHash candidate list (new_line(score), best first):")
     print(candidates.format() or "  (none)")
 
-    similarity_matches = match_changed_lines(
+    similarity_matches = resolve_conflicts(
         old_raw,
         new_raw,
-        res.left_list,
-        res.right_list,
         candidates=candidates,
     )
     res.mapping.update(similarity_matches)
