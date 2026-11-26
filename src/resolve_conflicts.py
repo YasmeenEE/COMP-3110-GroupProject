@@ -9,11 +9,10 @@ Final similarity:
 """
 
 from __future__ import annotations
-import math
-import re
+
 from .preprocessing import preprocess
 from .generate_candidates import CandidateListResult
-
+from .context_similarity import calculate_context_similarity
 
 CONTENT_WEIGHT = 0.6
 CONTEXT_WEIGHT = 0.4
@@ -68,36 +67,6 @@ def extract_context(
 
     return {"above": above, "below": below}
 
-def calculate_context_similarity(old_context: dict, new_context: dict) -> float:
-    """Compare surrounding text using cosine similarity of word counts."""
-    old_text = " ".join(
-        old_context.get("above", []) + old_context.get("below", [])
-    )
-    new_text = " ".join(
-        new_context.get("above", []) + new_context.get("below", [])
-    )
-
-    old_counts = {}
-    new_counts = {}
-
-    for word in re.findall(r"\w+", old_text.lower()):
-        old_counts[word] = old_counts.get(word, 0) + 1
-
-    for word in re.findall(r"\w+", new_text.lower()):
-        new_counts[word] = new_counts.get(word, 0) + 1
-
-    dot_product = sum(
-        count * new_counts.get(word, 0)
-        for word, count in old_counts.items()
-    )
-
-    old_length = math.sqrt(sum(count ** 2 for count in old_counts.values()))
-    new_length = math.sqrt(sum(count ** 2 for count in new_counts.values()))
-
-    if old_length == 0 or new_length == 0:
-        return 0.0
-
-    return dot_product / (old_length * new_length)
 
 def combined_similarity(
     old_line: str,
@@ -107,7 +76,7 @@ def combined_similarity(
 ) -> float:
     """Calculate final textual similarity.
     60% content similarity (Levenshtein)
-    40% context similarity (word-count cosine)"""
+    40% context similarity (TF-IDF cosine)"""
 
     content_score = calculate_text_similarity(old_line, new_line)
 
