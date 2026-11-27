@@ -1,8 +1,8 @@
-# LHDiff - Steps 1–4
+# LHDiff - Steps 1–5
 
 This is our COMP 3110 project. We are using Python to compare two versions of a file and find which lines in the old file match lines in the new file.
 
-We have implemented the first four steps of LHDiff.
+We have implemented all five steps of LHDiff.
 
 ## Step 1: Preprocessing
 
@@ -76,6 +76,22 @@ Code:
 - `src/context_similarity.py` — context similarity
 - `src/match_candidates.py` — conflict resolution
 
+## Step 5: Detect Line Splits
+
+For each unmapped new line, join the next lines onto it one at a time and compare with an unmapped old line using normalized Levenshtein:
+
+```text
+similarity = 1 - Levenshtein(old, joined) / max(len(old), len(joined))
+```
+
+- Keep adding lines while the similarity goes up
+- Map the old line to the group if it has 2+ lines and scores above the threshold (default `0.8`)
+- A Step 4 match can be grown into a split, since Step 4 may match just the first piece
+
+Example (slide 42): `L40 -> {R20, R21, R22}`
+
+Code: `src/detect_line_split.py`
+
 ## Project Files
 
 - `src/preprocessing.py` — Step 1
@@ -86,6 +102,7 @@ Code:
 - `src/similarity.py` — content similarity (Step 4)
 - `src/context_similarity.py` — context similarity (Step 4)
 - `src/match_candidates.py` — Step 4
+- `src/detect_line_split.py` — Step 5
 - `src/__init__.py` — package exports
 - `main.py` — CLI entry point
 - `examples/` — sample old/new files
@@ -136,6 +153,9 @@ Example output:
 5-6
 6-7
 
+# Step 5: line splits (old line -> new lines):
+  (none)
+
 # Final mapping (old-new):
 1-1
 2-3
@@ -152,6 +172,14 @@ Example output:
 ```
 
 `2-3` means old line 2 matches new line 3. In Step 3, `old 3: 4(0.731)` means new line 4 is the best SimHash candidate for old line 3 with score 0.731.
+
+Line split example (slide 41):
+
+```bash
+python main.py examples/linesplit_old.txt examples/linesplit_new.txt
+```
+
+Step 5 finds `L1 -> {R1, R2, R3}`.
 
 Show normalized lines (Step 1):
 
@@ -181,7 +209,8 @@ from src import (
     preprocess,
     detect_unchanged,
     generate_candidates,
-    match_changed_lines,
+    resolve_conflicts,
+    detect_line_splits,
 )
 
 old_lines = [...]
@@ -191,13 +220,18 @@ res = detect_unchanged(old_lines, new_lines)
 candidates = generate_candidates(
     old_lines, new_lines, res.left_list, res.right_list
 )
-matches = match_changed_lines(
-    old_lines, new_lines, res.left_list, res.right_list, candidates=candidates
+matches = resolve_conflicts(old_lines, new_lines, candidates=candidates)
+
+still_left = [o for o in res.left_list if o not in matches]
+still_right = [n for n in res.right_list if n not in matches.values()]
+splits = detect_line_splits(
+    old_lines, new_lines, still_left, still_right, step4_matches=matches
 )
 ```
 
 ## Next Steps
 
-Still to do:
+Still to do (project goals, slides 53–55):
 
-- **Step 5:** Detect line splits (one old line → several consecutive new lines)
+- **Goal 2:** Evaluate the tool on a new dataset of at least 25 files, plus the old dataset
+- **Goal 3:** Extend the tool to find bug-introducing changes from bug-fix commits

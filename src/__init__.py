@@ -5,6 +5,7 @@ LHDiff tracks lines between versions of a file.
     Step 2: src.detect_unchanged
     Step 3: src.generate_candidates (SimHash + Hamming, top k=15)
     Step 4: src.match_candidates (textual similarity on candidates)
+    Step 5: src.detect_line_split (line splits)
 
 Public API imports:
     normalize, preprocess                         -- Step 1
@@ -15,6 +16,7 @@ Public API imports:
     calculate_content_similarity                  -- content score (Step 4)
     calculate_context_similarity                  -- context score (Step 4)
     match_changed_lines, combined_similarity      -- Step 4
+    detect_line_splits, SPLIT_THRESHOLD           -- Step 5
 """
 
 from .preprocessing import normalize, preprocess
@@ -33,6 +35,8 @@ from .resolve_conflicts import (
     combined_similarity,
     resolve_conflicts,
 )
+from .detect_line_split import detect_line_splits, SPLIT_THRESHOLD
+
 __all__ = [
     "normalize",
     "preprocess",
@@ -51,6 +55,8 @@ __all__ = [
     "calculate_context_similarity",
     "resolve_conflicts",
     "combined_similarity",
+    "detect_line_splits",
+    "SPLIT_THRESHOLD",
 ]
 
-__version__ = "0.4.0"  # Step 3 SimHash candidate generation
+__version__ = "0.5.0"  # Step 5 line split detection
