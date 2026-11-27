@@ -235,3 +235,20 @@ Still to do (project goals, slides 53–55):
 
 - **Goal 2:** Evaluate the tool on a new dataset of at least 25 files, plus the old dataset
 - **Goal 3:** Extend the tool to find bug-introducing changes from bug-fix commits
+
+## Bug-tracking extension
+
+Identify likely bug-fix commits and trace their changed old lines to candidate
+bug-introducing changes using Git history and the complete Steps 1–5 mapper:
+
+```bash
+python bug_tracker.py /path/to/repository --ref main
+python bug_tracker.py /path/to/repository --fix FIX_SHA --format json --output report.json
+python -m unittest discover -s tests -v
+```
+
+Reports include candidate commits, original affected lines, classification
+reasons, and history-tracing evidence. Results are candidates for review, not
+proof of bug causation. See [the guide](docs/BUG_TRACKING.md) for the algorithm,
+options, evaluation, and limits, and [the repository review](docs/REPOSITORY_REVIEW.md)
+for branch and integration findings.

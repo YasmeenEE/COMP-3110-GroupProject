@@ -1,0 +1,186 @@
+{
+  "dataset": "25 controlled synthetic Git histories; not a real-world accuracy estimate",
+  "configuration": "ignore_indentation=True; generated indentation edits are explicitly non-semantic",
+  "metric": "exact candidate-set match against the known introducing commit",
+  "cases": 25,
+  "lhdiff_correct": 25,
+  "basic_blame_correct": 10,
+  "baseline": "git blame --line-porcelain (without -w, -M, or -C)",
+  "results": [
+    {
+      "case": "py/direct",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    },
+    {
+      "case": "py/move",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "py/indent",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "py/split",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "py/rename",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    },
+    {
+      "case": "java/direct",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    },
+    {
+      "case": "java/move",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "java/indent",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "java/split",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "java/rename",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    },
+    {
+      "case": "c/direct",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    },
+    {
+      "case": "c/move",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "c/indent",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "c/split",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "c/rename",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    },
+    {
+      "case": "js/direct",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    },
+    {
+      "case": "js/move",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "js/indent",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "js/split",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "js/rename",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    },
+    {
+      "case": "rs/direct",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    },
+    {
+      "case": "rs/move",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "rs/indent",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "rs/split",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": false,
+      "supporting_lines": 1
+    },
+    {
+      "case": "rs/rename",
+      "expected_subject": "Introduce faulty calculation",
+      "lhdiff_exact_match": true,
+      "basic_blame_exact_match": true,
+      "supporting_lines": 1
+    }
+  ]
+}

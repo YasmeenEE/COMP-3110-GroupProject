@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "method": "LHDiff-assisted SZZ heuristic",
+  "warning": "Candidates are evidence for review, not proof of bug causation.",
+  "ignore_indentation": false,
+  "shallow_history": false,
+  "commits_examined": 16,
+  "skipped_commits": 15,
+  "fixes": [
+    {
+      "fix_commit": "0f1829be7679cc38bd0f714ec279ec53de52e0d5",
+      "subject": "Bug Fixes, .gitignore file added and Requirement.txt added",
+      "classification": {
+        "is_bug_fix": true,
+        "strength": "strong",
+        "reasons": [
+          "repair verb and defect keyword"
+        ],
+        "issue_ids": []
+      },
+      "status": "analyzed",
+      "evidence": [
+        {
+          "fix_path": "main.py",
+          "parent_path": "main.py",
+          "parent_line": 13,
+          "old_text": "from lhdiff import preprocess, detect_unchanged",
+          "origin": {
+            "status": "candidate",
+            "commit": "f8562d410968333931356f574c12c86c0afde99a",
+            "path": "main.py",
+            "line": 13,
+            "author": "Karanveer Singh Sidhu",
+            "date": "2026-11-02T16:04:01-05:00",
+            "subject": "Initial Commit Step 1: Preprocessing, Step2",
+            "reason": "file added",
+            "trace": []
+          }
+        },
+        {
+          "fix_path": "tests/test_detect_unchanged.py",
+          "parent_path": "tests/test_detect_unchanged.py",
+          "parent_line": 9,
+          "old_text": "from lhdiff import detect_unchanged",
+          "origin": {
+            "status": "candidate",
+            "commit": "f8562d410968333931356f574c12c86c0afde99a",
+            "path": "tests/test_detect_unchanged.py",
+            "line": 9,
+            "author": "Karanveer Singh Sidhu",
+            "date": "2026-11-02T16:04:01-05:00",
+            "subject": "Initial Commit Step 1: Preprocessing, Step2",
+            "reason": "file added",
+            "trace": []
+          }
+        },
+        {
+          "fix_path": "tests/test_preprocessing.py",
+          "parent_path": "tests/test_preprocessing.py",
+          "parent_line": 9,
+          "old_text": "from lhdiff import normalize, preprocess",
+          "origin": {
+            "status": "candidate",
+            "commit": "f8562d410968333931356f574c12c86c0afde99a",
+            "path": "tests/test_preprocessing.py",
+            "line": 9,
+            "author": "Karanveer Singh Sidhu",
+            "date": "2026-11-02T16:04:01-05:00",
+            "subject": "Initial Commit Step 1: Preprocessing, Step2",
+            "reason": "file added",
+            "trace": []
+          }
+        }
+      ],
+      "notes": [],
+      "candidates": [
+        {
+          "commit": "f8562d410968333931356f574c12c86c0afde99a",
+          "subject": "Initial Commit Step 1: Preprocessing, Step2",
+          "supporting_lines": 3
+        }
+      ]
+    }
+  ]
+}
